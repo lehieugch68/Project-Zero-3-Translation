@@ -25,8 +25,8 @@ namespace ProjectZero3_Translation
         private void dataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             int index = int.Parse(labelIndex.Text);
-            if (e.RowIndex > MainUI._DataMessage[index].Strings.Count - 1) return;
-            MainUI._DataMessage.Where(entry => entry.Index == index).FirstOrDefault().Strings[e.RowIndex] = $"{dataGridView.Rows[e.RowIndex].Cells[1].Value}";
+            if (e.RowIndex > GlobalVariable._DataMessage[index].Strings.Count - 1) return;
+            GlobalVariable._DataMessage.Where(entry => entry.Index == index).FirstOrDefault().Strings[e.RowIndex] = $"{dataGridView.Rows[e.RowIndex].Cells[1].Value}";
         }
 
         private void EditorUI_FromClosing(object sender, FormClosingEventArgs e)

@@ -1,6 +1,6 @@
 ﻿namespace ProjectZero3_Translation
 {
-    partial class EditorUI
+    partial class VWFUI
     {
         /// <summary>
         /// Required designer variable.
@@ -33,35 +33,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.labelIndex = new System.Windows.Forms.Label();
-            this.labelIndexTitle = new System.Windows.Forms.Label();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.labelOffset = new System.Windows.Forms.Label();
-            this.labelOffsetTitle = new System.Windows.Forms.Label();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndexCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HexCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CharCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WidthCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HeightCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReplaceCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.progressBarFont = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
-            // 
-            // labelIndex
-            // 
-            this.labelIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelIndex.AutoSize = true;
-            this.labelIndex.Location = new System.Drawing.Point(550, 10);
-            this.labelIndex.Name = "labelIndex";
-            this.labelIndex.Size = new System.Drawing.Size(22, 13);
-            this.labelIndex.TabIndex = 10;
-            this.labelIndex.Text = "NA";
-            // 
-            // labelIndexTitle
-            // 
-            this.labelIndexTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelIndexTitle.AutoSize = true;
-            this.labelIndexTitle.Location = new System.Drawing.Point(508, 10);
-            this.labelIndexTitle.Name = "labelIndexTitle";
-            this.labelIndexTitle.Size = new System.Drawing.Size(36, 13);
-            this.labelIndexTitle.TabIndex = 9;
-            this.labelIndexTitle.Text = "Index:";
             // 
             // dataGridView
             // 
@@ -84,9 +66,13 @@
             this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
-            this.ColText});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.IndexCol,
+            this.HexCol,
+            this.CharCol,
+            this.WidthCol,
+            this.HeightCol,
+            this.ReplaceCol});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -94,7 +80,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView.Location = new System.Drawing.Point(12, 35);
+            this.dataGridView.Location = new System.Drawing.Point(12, 37);
             this.dataGridView.Name = "dataGridView";
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
@@ -108,69 +94,94 @@
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.Size = new System.Drawing.Size(560, 415);
-            this.dataGridView.TabIndex = 8;
+            this.dataGridView.Size = new System.Drawing.Size(560, 398);
+            this.dataGridView.TabIndex = 9;
             this.dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
             // 
-            // labelOffset
+            // IndexCol
             // 
-            this.labelOffset.AutoSize = true;
-            this.labelOffset.Location = new System.Drawing.Point(56, 10);
-            this.labelOffset.Name = "labelOffset";
-            this.labelOffset.Size = new System.Drawing.Size(22, 13);
-            this.labelOffset.TabIndex = 7;
-            this.labelOffset.Text = "NA";
+            this.IndexCol.HeaderText = "Index";
+            this.IndexCol.Name = "IndexCol";
+            this.IndexCol.ReadOnly = true;
+            this.IndexCol.Width = 80;
             // 
-            // labelOffsetTitle
+            // HexCol
             // 
-            this.labelOffsetTitle.AutoSize = true;
-            this.labelOffsetTitle.Location = new System.Drawing.Point(12, 10);
-            this.labelOffsetTitle.Name = "labelOffsetTitle";
-            this.labelOffsetTitle.Size = new System.Drawing.Size(38, 13);
-            this.labelOffsetTitle.TabIndex = 6;
-            this.labelOffsetTitle.Text = "Offset:";
+            this.HexCol.HeaderText = "Hex";
+            this.HexCol.Name = "HexCol";
+            this.HexCol.ReadOnly = true;
             // 
-            // ID
+            // CharCol
             // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 40;
+            this.CharCol.HeaderText = "Decoded Text";
+            this.CharCol.Name = "CharCol";
+            this.CharCol.ReadOnly = true;
             // 
-            // ColText
+            // WidthCol
             // 
-            this.ColText.HeaderText = "Decoded Text";
-            this.ColText.Name = "ColText";
-            this.ColText.Width = 500;
+            this.WidthCol.HeaderText = "Width";
+            this.WidthCol.Name = "WidthCol";
+            this.WidthCol.Width = 80;
             // 
-            // EditorUI
+            // HeightCol
+            // 
+            this.HeightCol.HeaderText = "Height";
+            this.HeightCol.Name = "HeightCol";
+            this.HeightCol.ReadOnly = true;
+            this.HeightCol.Width = 80;
+            // 
+            // ReplaceCol
+            // 
+            this.ReplaceCol.HeaderText = "Replaced By";
+            this.ReplaceCol.Name = "ReplaceCol";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(12, 8);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(560, 23);
+            this.btnSave.TabIndex = 10;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // progressBarFont
+            // 
+            this.progressBarFont.Location = new System.Drawing.Point(12, 441);
+            this.progressBarFont.Name = "progressBarFont";
+            this.progressBarFont.Size = new System.Drawing.Size(560, 10);
+            this.progressBarFont.TabIndex = 11;
+            // 
+            // VWFUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 461);
-            this.Controls.Add(this.labelIndex);
-            this.Controls.Add(this.labelIndexTitle);
+            this.Controls.Add(this.progressBarFont);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dataGridView);
-            this.Controls.Add(this.labelOffset);
-            this.Controls.Add(this.labelOffsetTitle);
-            this.Name = "EditorUI";
-            this.Text = "Editor";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditorUI_FromClosing);
-            this.Resize += new System.EventHandler(this.View_Resize);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(600, 500);
+            this.MinimumSize = new System.Drawing.Size(600, 500);
+            this.Name = "VWFUI";
+            this.Text = "Variable Width Font";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VWFUI_FromClosing);
+            this.Load += new System.EventHandler(this.VWFUI_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        public System.Windows.Forms.Label labelIndex;
-        private System.Windows.Forms.Label labelIndexTitle;
         public System.Windows.Forms.DataGridView dataGridView;
-        public System.Windows.Forms.Label labelOffset;
-        private System.Windows.Forms.Label labelOffsetTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColText;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndexCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HexCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CharCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WidthCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HeightCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ReplaceCol;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.ProgressBar progressBarFont;
     }
 }

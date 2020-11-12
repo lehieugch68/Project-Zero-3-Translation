@@ -33,16 +33,18 @@
             this.linkLabelGit = new System.Windows.Forms.LinkLabel();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.listFiles = new System.Windows.Forms.ListBox();
-            this.btnReimport = new System.Windows.Forms.Button();
-            this.btnOpen = new System.Windows.Forms.Button();
-            this.txtBoxGameLocation = new System.Windows.Forms.TextBox();
-            this.labelGameLocation = new System.Windows.Forms.Label();
-            this.btnSelectGameLocation = new System.Windows.Forms.Button();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.importAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRepack = new System.Windows.Forms.Button();
+            this.btnUnpack = new System.Windows.Forms.Button();
+            this.txtBoxGameLocation = new System.Windows.Forms.TextBox();
+            this.labelGameLocation = new System.Windows.Forms.Label();
+            this.btnSelectGameLocation = new System.Windows.Forms.Button();
+            this.btnVWF = new System.Windows.Forms.Button();
+            this.exportAllOneFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,35 +86,74 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listFiles.ContextMenuStrip = this.contextMenuStrip;
             this.listFiles.FormattingEnabled = true;
-            this.listFiles.Location = new System.Drawing.Point(15, 128);
+            this.listFiles.Location = new System.Drawing.Point(15, 154);
             this.listFiles.Name = "listFiles";
-            this.listFiles.Size = new System.Drawing.Size(457, 303);
+            this.listFiles.Size = new System.Drawing.Size(457, 277);
             this.listFiles.TabIndex = 22;
             this.listFiles.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listFiles_MouseDoubleClick);
             // 
-            // btnReimport
+            // contextMenuStrip
             // 
-            this.btnReimport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToolStripMenuItem,
+            this.importToolStripMenuItem,
+            this.exportAllToolStripMenuItem1,
+            this.exportAllOneFileToolStripMenuItem,
+            this.importAllToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(181, 136);
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            // 
+            // exportAllToolStripMenuItem1
+            // 
+            this.exportAllToolStripMenuItem1.Name = "exportAllToolStripMenuItem1";
+            this.exportAllToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.exportAllToolStripMenuItem1.Text = "Export All";
+            this.exportAllToolStripMenuItem1.Click += new System.EventHandler(this.exportAllToolStripMenuItem1_Click);
+            // 
+            // importAllToolStripMenuItem
+            // 
+            this.importAllToolStripMenuItem.Name = "importAllToolStripMenuItem";
+            this.importAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importAllToolStripMenuItem.Text = "Import All";
+            this.importAllToolStripMenuItem.Click += new System.EventHandler(this.importAllToolStripMenuItem_Click);
+            // 
+            // btnRepack
+            // 
+            this.btnRepack.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReimport.Location = new System.Drawing.Point(12, 99);
-            this.btnReimport.Name = "btnReimport";
-            this.btnReimport.Size = new System.Drawing.Size(460, 23);
-            this.btnReimport.TabIndex = 21;
-            this.btnReimport.Text = "Save";
-            this.btnReimport.UseVisualStyleBackColor = true;
-            this.btnReimport.Click += new System.EventHandler(this.btnReimport_Click);
+            this.btnRepack.Location = new System.Drawing.Point(12, 95);
+            this.btnRepack.Name = "btnRepack";
+            this.btnRepack.Size = new System.Drawing.Size(460, 23);
+            this.btnRepack.TabIndex = 21;
+            this.btnRepack.Text = "Repack";
+            this.btnRepack.UseVisualStyleBackColor = true;
+            this.btnRepack.Click += new System.EventHandler(this.btnReimport_Click);
             // 
-            // btnOpen
+            // btnUnpack
             // 
-            this.btnOpen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnUnpack.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpen.Location = new System.Drawing.Point(12, 70);
-            this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(460, 23);
-            this.btnOpen.TabIndex = 20;
-            this.btnOpen.Text = "Open";
-            this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            this.btnUnpack.Location = new System.Drawing.Point(12, 70);
+            this.btnUnpack.Name = "btnUnpack";
+            this.btnUnpack.Size = new System.Drawing.Size(460, 23);
+            this.btnUnpack.TabIndex = 20;
+            this.btnUnpack.Text = "Unpack";
+            this.btnUnpack.UseVisualStyleBackColor = true;
+            this.btnUnpack.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // txtBoxGameLocation
             // 
@@ -143,55 +184,37 @@
             this.btnSelectGameLocation.UseVisualStyleBackColor = true;
             this.btnSelectGameLocation.Click += new System.EventHandler(this.btnSelectGameLocation_Click);
             // 
-            // contextMenuStrip
+            // btnVWF
             // 
-            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportToolStripMenuItem,
-            this.importToolStripMenuItem,
-            this.exportAllToolStripMenuItem1,
-            this.importAllToolStripMenuItem});
-            this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(181, 114);
+            this.btnVWF.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVWF.Location = new System.Drawing.Point(12, 120);
+            this.btnVWF.Name = "btnVWF";
+            this.btnVWF.Size = new System.Drawing.Size(460, 23);
+            this.btnVWF.TabIndex = 26;
+            this.btnVWF.Text = "Variable Width Font";
+            this.btnVWF.UseVisualStyleBackColor = true;
+            this.btnVWF.Click += new System.EventHandler(this.btnVWF_Click);
             // 
-            // exportToolStripMenuItem
+            // exportAllOneFileToolStripMenuItem
             // 
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exportToolStripMenuItem.Text = "Export";
-            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.importToolStripMenuItem.Text = "Import";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
-            // 
-            // exportAllToolStripMenuItem1
-            // 
-            this.exportAllToolStripMenuItem1.Name = "exportAllToolStripMenuItem1";
-            this.exportAllToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.exportAllToolStripMenuItem1.Text = "Export All";
-            this.exportAllToolStripMenuItem1.Click += new System.EventHandler(this.exportAllToolStripMenuItem1_Click);
-            // 
-            // importAllToolStripMenuItem
-            // 
-            this.importAllToolStripMenuItem.Name = "importAllToolStripMenuItem";
-            this.importAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.importAllToolStripMenuItem.Text = "Import All";
-            this.importAllToolStripMenuItem.Click += new System.EventHandler(this.importAllToolStripMenuItem_Click);
+            this.exportAllOneFileToolStripMenuItem.Name = "exportAllOneFileToolStripMenuItem";
+            this.exportAllOneFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportAllOneFileToolStripMenuItem.Text = "Export All (One File)";
+            this.exportAllOneFileToolStripMenuItem.Click += new System.EventHandler(this.exportAllOneFileToolStripMenuItem_Click);
             // 
             // MainUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 491);
+            this.Controls.Add(this.btnVWF);
             this.Controls.Add(this.linkLabelVHG);
             this.Controls.Add(this.linkLabelGit);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.listFiles);
-            this.Controls.Add(this.btnReimport);
-            this.Controls.Add(this.btnOpen);
+            this.Controls.Add(this.btnRepack);
+            this.Controls.Add(this.btnUnpack);
             this.Controls.Add(this.txtBoxGameLocation);
             this.Controls.Add(this.labelGameLocation);
             this.Controls.Add(this.btnSelectGameLocation);
@@ -210,8 +233,8 @@
         private System.Windows.Forms.LinkLabel linkLabelGit;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.ListBox listFiles;
-        private System.Windows.Forms.Button btnReimport;
-        private System.Windows.Forms.Button btnOpen;
+        private System.Windows.Forms.Button btnRepack;
+        private System.Windows.Forms.Button btnUnpack;
         private System.Windows.Forms.TextBox txtBoxGameLocation;
         private System.Windows.Forms.Label labelGameLocation;
         private System.Windows.Forms.Button btnSelectGameLocation;
@@ -220,6 +243,8 @@
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportAllToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem importAllToolStripMenuItem;
+        private System.Windows.Forms.Button btnVWF;
+        private System.Windows.Forms.ToolStripMenuItem exportAllOneFileToolStripMenuItem;
     }
 }
 

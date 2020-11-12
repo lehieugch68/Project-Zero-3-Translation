@@ -63,9 +63,19 @@ namespace ProjectZero3_Translation.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] encoding {
+        internal static byte[] config {
             get {
-                object obj = ResourceManager.GetObject("encoding", resourceCulture);
+                object obj = ResourceManager.GetObject("config", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] vwf {
+            get {
+                object obj = ResourceManager.GetObject("vwf", resourceCulture);
                 return ((byte[])(obj));
             }
         }

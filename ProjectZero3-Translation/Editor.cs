@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing;
 
 namespace ProjectZero3_Translation
@@ -37,6 +36,16 @@ namespace ProjectZero3_Translation
                 _Editor.dataGridView.Rows.Add($"{i}", data.Strings[i]);
             }
             return _Editor;
+        }
+
+        public bool isVisible()
+        {
+            return _Editor.Visible;
+        }
+
+        public int GetIndex()
+        {
+            return int.Parse(_Editor.labelIndex.Text);
         }
     }
 }
