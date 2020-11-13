@@ -138,7 +138,7 @@ namespace ProjectZero3_Translation
                 {
                     try
                     {
-                        ProjectZero3.Repack(GlobalVariable._JsonConfig["GameLocation"], GlobalVariable._DataMessage, _Encoding, this.progressBar);
+                        ProjectZero3.Repack(GlobalVariable._JsonConfig["GameLocation"], AppConfig._TextArchive, GlobalVariable._DataMessage, _Encoding, this.progressBar);
                     }
                     catch (Exception err)
                     {

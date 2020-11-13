@@ -85,7 +85,7 @@ namespace ProjectZero3_Translation
             return fhd_info;
         }
 
-        private static RepackInfo UpdateFHD(string fhd, long msg_size, long msg_total_size)
+        private static RepackInfo UpdateFHD(string fhd, string filename, long msg_size, long bin_size)
         {
             MemoryStream stream = new MemoryStream(File.ReadAllBytes(fhd));
             BinaryReader reader = new BinaryReader(stream);            
@@ -103,8 +103,8 @@ namespace ProjectZero3_Translation
                 uint name_offset = reader.ReadUInt32();
                 uint lba_offset = reader.ReadUInt32();
                 reader.BaseStream.Seek(name_offset, SeekOrigin.Begin);
-                bool isSizeChanged = false;
-                long bytes_changed = 0;
+                /*bool isSizeChanged = false;
+                long bytes_changed = 0;*/
                 for (int i = 0; i < files; i++)
                 {
                     uint dest_name_offset = reader.ReadUInt32();
@@ -120,13 +120,18 @@ namespace ProjectZero3_Translation
                     long file_lba_offset = lba_offset + i * 4;
                     reader.BaseStream.Seek(file_lba_offset, SeekOrigin.Begin);
                     uint bin_offset = reader.ReadUInt32();
+                    /*if (bin_offset == 0xFFFFFFFF)
+                    {
+                        reader.BaseStream.Seek(current, SeekOrigin.Begin);
+                        continue;
+                    }
                     if (isSizeChanged)
                     {
                         writer.BaseStream.Seek(file_lba_offset, SeekOrigin.Begin);
-                        writer.Write((uint)(bin_offset + bytes_changed));
-                    }
+                        writer.Write((int)(bin_offset + bytes_changed));
+                    }*/
 
-                    if (file_name == "msg.obj")
+                    if (file_name == filename)
                     {
                         long file_compressed_offset = compressed_offset + i * 4;
                         long file_decompressed_offset = decompressed_offset + i * 4;
@@ -135,15 +140,19 @@ namespace ProjectZero3_Translation
                         /*reader.BaseStream.Seek(file_compressed_offset, SeekOrigin.Begin);
                         uint compressed_size = reader.ReadUInt32();*/
                         writer.BaseStream.Seek(file_compressed_offset, SeekOrigin.Begin);
-                        writer.Write((uint)(msg_size * 2));
+                        writer.Write((uint)(msg_size << 1));
                         writer.BaseStream.Seek(file_decompressed_offset, SeekOrigin.Begin);
                         writer.Write((uint)msg_size);
-
-                        long total_size = decompressed_size % 2048 == 0 ? decompressed_size : decompressed_size + (2048 - (long)decompressed_size % 2048);
-                        fhd_info.BINOffset = bin_offset * 2048;
+                        long total_size = decompressed_size % 0x800 == 0 ? decompressed_size : decompressed_size + (0x800 - (long)decompressed_size % 0x800);
+                        //fhd_info.BINOffset = bin_offset * 0x800;
                         fhd_info.OldSize = total_size;
-                        fhd_info.NewSize = msg_total_size;
-                        if (total_size != msg_total_size)
+                        //fhd_info.NewSize = msg_total_size;
+                        fhd_info.BINOffset = bin_offset > AppConfig._TextArchiveOffset ?
+                            (bin_size - total_size) / 0x800 : bin_size / 0x800;
+                        writer.BaseStream.Position = file_lba_offset;
+                        writer.Write((uint)(fhd_info.BINOffset));
+                        break;
+                        /*if (total_size != msg_total_size)
                         {
                             isSizeChanged = true;
                             bytes_changed = (msg_total_size - total_size) / 2048;
@@ -151,7 +160,7 @@ namespace ProjectZero3_Translation
                         else
                         {
                             break;
-                        }
+                        }*/
                     }
                     reader.BaseStream.Seek(current, SeekOrigin.Begin);
                 }
@@ -217,21 +226,19 @@ namespace ProjectZero3_Translation
                     long pos_temp = reader.BaseStream.Position;
                     int str_len = 0;
                     int next_pointer = 0;
-                    if (x >= pointer_nums - 1)
+                    next_pointer = x >= pointer_nums - 1 ?
+                        (i >= blocks_sorted.Length - 1 ?
+                            (int)reader.BaseStream.Length : 
+                            (int)blocks_sorted[i + 1].PointerOffset) :
+                        reader.ReadInt32();
+                    /*if (x >= pointer_nums - 1)
                     {
-                        if (i >= blocks_sorted.Length - 1)
-                        {
-                            next_pointer = (int)reader.BaseStream.Length;
-                        }
-                        else
-                        {
-                            next_pointer = (int)blocks_sorted[i + 1].PointerOffset;
-                        }
+                        next_pointer = i >= blocks_sorted.Length - 1 ? (int)reader.BaseStream.Length : (int)blocks_sorted[i + 1].PointerOffset;
                     }
                     else
                     {
                         next_pointer = reader.ReadInt32();
-                    }
+                    }*/
                     str_len = next_pointer - pointer;
                     reader.BaseStream.Seek(pointer, SeekOrigin.Begin);
                     byte[] raw = reader.ReadBytes(str_len);
@@ -332,7 +339,7 @@ namespace ProjectZero3_Translation
                 {
                     writer.Write(text_bytes);
                 }
-                percent += 50.0 / blocks_sorted.Length;
+                percent += 80.0 / blocks_sorted.Length;
                 Operation.ProgressBar(progressBar, (int)percent);
             }
             writer.BaseStream.Seek(0, SeekOrigin.Begin);
@@ -344,17 +351,17 @@ namespace ProjectZero3_Translation
             return result.ToArray();
         }
 
-        public static void Repack(string dir, List<BlockText> blocks, dynamic config, ProgressBar progressBar)
+        public static void Repack(string dir, string filename, List<BlockText> blocks, dynamic config, ProgressBar progressBar)
         {
             byte[] msg_raw_data = ReimportText(blocks, config, progressBar);
-            double percent = 50;
+            double percent = 80;
             byte[] msg_data;
-            if (msg_raw_data.Length % 2048 != 0)
+            if (msg_raw_data.Length % 0x800 != 0)
             {
                 MemoryStream msg_stream = new MemoryStream();
                 BinaryWriter msg_writer = new BinaryWriter(msg_stream);
                 msg_writer.Write(msg_raw_data);
-                long zeroes_len = (2048 - msg_raw_data.Length % 2048);
+                long zeroes_len = (0x800 - msg_raw_data.Length % 0x800);
                 msg_writer.Write(new byte[(int)zeroes_len]);
                 msg_data = msg_stream.ToArray();
                 msg_writer.Close();
@@ -367,9 +374,14 @@ namespace ProjectZero3_Translation
             string fhd = Directory.GetFiles(dir, "*.FHD", SearchOption.AllDirectories).FirstOrDefault();
             string bin = Directory.GetFiles(dir, "*.BIN", SearchOption.AllDirectories).FirstOrDefault();
             if (!File.Exists(fhd) || !File.Exists(bin)) throw new Exception("File game not found.");
-            RepackInfo repack_info = UpdateFHD(fhd, msg_raw_data.Length, msg_data.Length);
+            long bin_size = new FileInfo(bin).Length;
+            RepackInfo repack_info = UpdateFHD(fhd, filename, msg_raw_data.Length, bin_size);
             Operation.ProgressBar(progressBar, (int)(percent+=5));
-            if (repack_info.OldSize == repack_info.NewSize)
+            BinaryWriter writer = new BinaryWriter(File.OpenWrite(bin));
+            writer.BaseStream.Seek(repack_info.BINOffset * 0x800, SeekOrigin.Begin);
+            writer.Write(msg_data);
+            writer.Close();
+            /*if (repack_info.OldSize == repack_info.NewSize)
             {
                 BinaryWriter writer = new BinaryWriter(File.OpenWrite(bin));
                 writer.BaseStream.Seek(repack_info.BINOffset, SeekOrigin.Begin);
@@ -379,7 +391,7 @@ namespace ProjectZero3_Translation
             else
             {
                 int chunk_len = 2048;
-                string temp = Path.Combine(dir, "IMG_BD.BIN.temp");
+                string temp = Path.Combine(dir, $"{Path.GetFileName(bin)}.temp");
                 BinaryReader reader = new BinaryReader(File.OpenRead(bin));
                 reader.BaseStream.Seek(0, SeekOrigin.Begin);
                 FileStream temp_file = File.Create(temp);
@@ -402,7 +414,7 @@ namespace ProjectZero3_Translation
                 temp_file.Close();
                 File.Delete(bin);
                 File.Move(temp, bin);
-            }
+            }*/
             Operation.ProgressBar(progressBar, 100);
         }
         public static List<FontCharacter> VariableWidthFont(string dir, ProgressBar progressBar)
