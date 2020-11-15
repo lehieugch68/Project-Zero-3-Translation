@@ -16,7 +16,7 @@ namespace ProjectZero3_Translation
         public static readonly string _AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string _ConfigDirectory = Path.Combine(_AppDirectory, "Config");
         public static readonly string _ConfigFile = Path.Combine(_ConfigDirectory, "config.json");
-        public static readonly string _ReplaceConfig = Path.Combine(AppConfig._ConfigDirectory, "replace.json");
+        public static readonly string _ReplaceConfig = Path.Combine(AppConfig._ConfigDirectory, "encoding.json");
         public static readonly string _MessageBoxTitle = "Project Zero 3 Translation";
     }
 }

@@ -361,7 +361,7 @@ namespace ProjectZero3_Translation
                 MemoryStream msg_stream = new MemoryStream();
                 BinaryWriter msg_writer = new BinaryWriter(msg_stream);
                 msg_writer.Write(msg_raw_data);
-                long zeroes_len = (0x800 - msg_raw_data.Length % 0x800);
+                long zeroes_len = 0x800 - (msg_raw_data.Length % 0x800);
                 msg_writer.Write(new byte[(int)zeroes_len]);
                 msg_data = msg_stream.ToArray();
                 msg_writer.Close();
